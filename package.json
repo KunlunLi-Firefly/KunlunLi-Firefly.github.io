@@ -19,7 +19,6 @@
 		"new-post": "node scripts/new-post.js",
 		"format": "biome format --write ./src ./scripts",
 		"lint": "biome check --write ./src ./scripts",
-		"preinstall": "pnpm exec only-allow pnpm",
 		"lqips": "pnpm exec tsx scripts/generate-lqips.ts",
 		"github-cards": "pnpm exec tsx scripts/generate-github-card-data.ts"
 	},

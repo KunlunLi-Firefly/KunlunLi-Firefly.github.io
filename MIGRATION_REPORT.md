@@ -1,7 +1,7 @@
 # Firefly Personal Website Migration Report
 
 Date: 2026-08-31
-Status: Local website and sanitized public CV complete; GitHub deployment in progress.
+Status: Public repository created; GitHub Actions deployment configured.
 
 ## 1. Outcome
 
@@ -21,7 +21,7 @@ The current site contains:
 - A one-page sanitized public CV with the owner-provided portrait
 - No transcript, test report, application essay, or other private document
 
-No online GitHub repository was modified during this work.
+The public source repository is [KunlunLi-Firefly.github.io](https://github.com/KunlunLi-Firefly/KunlunLi-Firefly.github.io). Its `main` branch starts with a clean root commit, while the pinned Firefly template history remains available locally through `upstream` and the local `template-history` branch.
 
 ## 2. Source setup
 
@@ -188,8 +188,8 @@ Current sequence:
 
 1. Generate and visually verify the sanitized public CV. (Complete)
 2. Add CV download links to the profile, landing page, and About page. (Complete)
-3. Perform one more privacy, build, and link scan.
-4. Create the confirmed public repository `KunlunLi-Firefly.github.io` and deploy to `https://kunlunli-firefly.github.io`.
+3. Perform one more privacy, build, and link scan. (Complete)
+4. Create the confirmed public repository `KunlunLi-Firefly.github.io` and configure GitHub Actions deployment. (Complete)
 5. Verify the live domain, links, search, CV download, and mobile layout.
 6. After the planned arXiv upload, update SSLAL status and links with collaborator approval.
 7. If separately authorized, remove sensitive files from the old repository history.
