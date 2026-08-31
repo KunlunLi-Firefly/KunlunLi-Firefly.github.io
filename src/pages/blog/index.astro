@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import PostCard from "@/components/layout/PostCard.astro";
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+import { getPostUrlBySlug } from "@/utils/url-utils";
+
+const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.published.valueOf() - a.data.published.valueOf(),
+);
+---
+
+<MainGridLayout title="Blog" description="Technical notes and project reflections by Kunlun Li.">
+	<header class="card-base rounded-(--radius-large) p-6 md:p-9">
+		<p class="text-sm font-semibold uppercase tracking-[0.16em] text-(--primary)">Notes</p>
+		<h1 class="mt-2 text-4xl font-bold text-90">Blog</h1>
+		<p class="mt-4 max-w-3xl text-lg leading-8 text-70">Technical notes, implementation details, and reflections that are useful beyond a single project.</p>
+	</header>
+	<div class="mt-4 space-y-4">
+		{posts.length > 0 ? posts.map((entry, index) => (
+			<PostCard
+				entry={entry}
+				title={entry.data.title}
+				tags={entry.data.tags}
+				category={entry.data.category}
+				published={entry.data.published}
+				updated={entry.data.updated}
+				url={getPostUrlBySlug(entry.id)}
+				image={entry.data.image}
+				description={entry.data.description}
+				draft={entry.data.draft}
+				pinned={entry.data.pinned}
+				password={!!entry.data.password}
+				loading={index < 2 ? "eager" : "lazy"}
+				style={`animation-delay: ${index * 50}ms`}
+			/>
+		)) : (
+			<div class="card-base rounded-(--radius-large) p-8 text-center text-60">No public notes yet. Future posts will live here as independent Markdown files.</div>
+		)}
+	</div>
+</MainGridLayout>

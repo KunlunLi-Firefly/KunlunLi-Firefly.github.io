@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import PublicationCard from "@/components/portfolio/PublicationCard.astro";
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+
+const publications = (await getCollection("publications")).sort(
+	(a, b) => b.data.sortOrder - a.data.sortOrder,
+);
+---
+
+<MainGridLayout title="Publications" description="Publications and research manuscripts by Kunlun Li.">
+	<header class="card-base rounded-(--radius-large) p-6 md:p-9">
+		<p class="text-sm font-semibold uppercase tracking-[0.16em] text-(--primary)">Research output</p>
+		<h1 class="mt-2 text-4xl font-bold text-90">Publications</h1>
+		<p class="mt-4 max-w-3xl text-lg leading-8 text-70">Peer-reviewed work, preprints, and research manuscripts. Status labels are kept explicit so submitted and published work are not conflated.</p>
+	</header>
+	<div class="mt-4 space-y-4">
+		{publications.map((publication) => <PublicationCard publication={publication} />)}
+	</div>
+</MainGridLayout>

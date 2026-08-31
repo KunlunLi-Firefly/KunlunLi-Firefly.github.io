@@ -1,0 +1,58 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	project: CollectionEntry<"projects">;
+	compact?: boolean;
+}
+
+const { project, compact = false } = Astro.props;
+const { title, summary, year, status, researchArea, methods, cover } =
+	project.data;
+
+const statusLabels = {
+	completed: "Completed",
+	ongoing: "Ongoing",
+	coursework: "Course project",
+	manuscript: "Manuscript",
+};
+---
+
+<article class="card-base group overflow-hidden rounded-(--radius-large)">
+	{cover && (
+		<a href={`/projects/${project.id}/`} class="block aspect-[16/9] overflow-hidden bg-black/5">
+			<img
+				src={cover}
+				alt={`Preview of ${title}`}
+				loading="lazy"
+				class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+			/>
+		</a>
+	)}
+	<div class:list={["p-5 md:p-6", compact ? "md:p-5" : ""]}>
+		<div class="mb-3 flex flex-wrap items-center gap-2 text-xs font-medium text-50">
+			<span class="rounded-full bg-(--primary)/10 px-2.5 py-1 text-(--primary)">{researchArea}</span>
+			<span>{year}</span>
+			<span aria-hidden="true">·</span>
+			<span>{statusLabels[status]}</span>
+		</div>
+		<h2 class:list={["font-bold text-90", compact ? "text-xl" : "text-2xl"]}>
+			<a href={`/projects/${project.id}/`} class="transition hover:text-(--primary)">{title}</a>
+		</h2>
+		<p class="mt-3 leading-7 text-70">{summary}</p>
+		{!compact && methods.length > 0 && (
+			<div class="mt-4 flex flex-wrap gap-2">
+				{methods.slice(0, 4).map((method) => (
+					<span class="rounded-md bg-black/5 px-2.5 py-1 text-xs text-60 dark:bg-white/5">{method}</span>
+				))}
+			</div>
+		)}
+		<a
+			href={`/projects/${project.id}/`}
+			class="mt-5 inline-flex items-center gap-1.5 font-medium text-(--primary) transition hover:gap-2.5"
+		>
+			View project <Icon name="material-symbols:arrow-forward-rounded" class="text-lg" />
+		</a>
+	</div>
+</article>

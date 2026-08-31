@@ -1,0 +1,32 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	publication: CollectionEntry<"publications">;
+}
+
+const { publication } = Astro.props;
+const { title, authors, year, venue, type, status, summary, doi, url } =
+	publication.data;
+---
+
+<article class="card-base rounded-(--radius-large) p-5 md:p-7">
+	<div class="mb-3 flex flex-wrap items-center gap-2 text-xs font-medium text-50">
+		<span class="rounded-full bg-(--primary)/10 px-2.5 py-1 uppercase tracking-wide text-(--primary)">{type}</span>
+		<span>{year}</span>
+		{status && <><span aria-hidden="true">·</span><span>{status}</span></>}
+	</div>
+	<h2 class="text-xl font-bold leading-snug text-90 md:text-2xl">{title}</h2>
+	<p class="mt-3 text-sm leading-6 text-60">{authors.join(", ")}</p>
+	<p class="mt-1 font-medium text-70">{venue}</p>
+	{summary && <p class="mt-4 leading-7 text-70">{summary}</p>}
+	<div class="mt-5 flex flex-wrap gap-3">
+		{url && (
+			<a href={url} target="_blank" rel="noreferrer" class="inline-flex items-center gap-1.5 font-medium text-(--primary)">
+				View publication <Icon name="material-symbols:open-in-new-rounded" class="text-lg" />
+			</a>
+		)}
+		{doi && <span class="text-sm text-50">DOI: {doi}</span>}
+	</div>
+</article>

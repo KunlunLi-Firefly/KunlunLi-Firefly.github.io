@@ -1,0 +1,29 @@
+---
+import { Icon } from "astro-icon/components";
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+---
+
+<MainGridLayout title="Research" description="Research interests and directions of Kunlun Li.">
+	<header class="card-base rounded-(--radius-large) p-6 md:p-9">
+		<p class="text-sm font-semibold uppercase tracking-[0.16em] text-(--primary)">Research</p>
+		<h1 class="mt-2 text-4xl font-bold text-90">Building useful representations from complex data</h1>
+		<p class="mt-5 max-w-4xl text-lg leading-8 text-70">My work is motivated by settings where data are difficult to collect, annotations are expensive, and useful signals are distributed across space, time, and modality.</p>
+	</header>
+	<div class="mt-4 grid gap-4">
+		<section class="card-base rounded-(--radius-large) p-6 md:p-8">
+			<Icon name="material-symbols:radiology-outline" class="text-4xl text-(--primary)" />
+			<h2 class="mt-4 text-2xl font-bold text-90">Medical image analysis</h2>
+			<p class="mt-3 leading-8 text-70">Segmentation and quantitative analysis of CT, MRI, and dermoscopic images, including registration, anatomical structure extraction, image synthesis, and clinically meaningful measurements.</p>
+		</section>
+		<section class="card-base rounded-(--radius-large) p-6 md:p-8">
+			<Icon name="material-symbols:model-training-outline" class="text-4xl text-(--primary)" />
+			<h2 class="mt-4 text-2xl font-bold text-90">Learning with limited annotation</h2>
+			<p class="mt-3 leading-8 text-70">Active and semi-supervised learning for data-scarce problems, with an emphasis on uncertainty, sample diversity, pseudo-label quality, and robust representations.</p>
+		</section>
+		<section class="card-base rounded-(--radius-large) p-6 md:p-8">
+			<Icon name="material-symbols:graphic-eq-rounded" class="text-4xl text-(--primary)" />
+			<h2 class="mt-4 text-2xl font-bold text-90">Signal processing and implementation</h2>
+			<p class="mt-3 leading-8 text-70">Signal extraction methods that connect mathematical modeling, machine learning, and implementation constraints, from speech analysis to embedded and hardware-oriented systems.</p>
+		</section>
+	</div>
+</MainGridLayout>

@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import ProjectCard from "@/components/portfolio/ProjectCard.astro";
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+
+const projects = (await getCollection("projects")).sort(
+	(a, b) => b.data.sortOrder - a.data.sortOrder,
+);
+---
+
+<MainGridLayout title="Projects" description="Research and engineering projects by Kunlun Li.">
+	<header class="card-base rounded-(--radius-large) p-6 md:p-9">
+		<p class="text-sm font-semibold uppercase tracking-[0.16em] text-(--primary)">Portfolio</p>
+		<h1 class="mt-2 text-4xl font-bold text-90">Projects</h1>
+		<p class="mt-4 max-w-3xl text-lg leading-8 text-70">Selected research and engineering work spanning medical imaging, data-efficient computer vision, speech processing, and implementation.</p>
+	</header>
+	<div class="mt-4 grid gap-4 lg:grid-cols-2">
+		{projects.map((project) => <ProjectCard project={project} />)}
+	</div>
+</MainGridLayout>

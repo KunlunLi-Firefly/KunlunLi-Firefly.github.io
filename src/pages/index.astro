@@ -1,0 +1,81 @@
+---
+import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+import ProjectCard from "@/components/portfolio/ProjectCard.astro";
+import PublicationCard from "@/components/portfolio/PublicationCard.astro";
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+
+const projects = (await getCollection("projects"))
+	.filter((project) => project.data.featured)
+	.sort((a, b) => b.data.sortOrder - a.data.sortOrder)
+	.slice(0, 3);
+const publications = (await getCollection("publications"))
+	.filter((publication) => publication.data.featured)
+	.sort((a, b) => b.data.sortOrder - a.data.sortOrder)
+	.slice(0, 1);
+---
+
+<MainGridLayout title="Research Portfolio" description="Research portfolio in medical imaging, computer vision, machine learning, and signal processing.">
+	<section class="card-base overflow-hidden rounded-(--radius-large) p-6 md:p-10 lg:p-12">
+		<p class="text-sm font-semibold uppercase tracking-[0.18em] text-(--primary)">Research portfolio</p>
+		<h1 class="mt-4 text-4xl font-bold leading-tight text-90 md:text-6xl">Kunlun Li</h1>
+		<p class="mt-5 max-w-3xl text-lg leading-8 text-70 md:text-xl">
+			I work across medical image analysis, computer vision, machine learning, and signal processing, with a focus on extracting useful structure from limited and complex data. Since March 2025, I have worked as an Application Algorithm Engineer at blueballon in Beijing, China.
+		</p>
+		<div class="mt-8 flex flex-wrap gap-3">
+			<a href="/projects/" class="inline-flex items-center gap-2 rounded-xl bg-(--primary) px-5 py-3 font-semibold text-white transition hover:opacity-90">
+				Explore projects <Icon name="material-symbols:arrow-forward-rounded" class="text-xl" />
+			</a>
+			<a href="/about/" class="inline-flex items-center gap-2 rounded-xl border border-black/10 px-5 py-3 font-semibold text-80 transition hover:border-(--primary) hover:text-(--primary) dark:border-white/10">
+				About me
+			</a>
+			<a href="/cv/kunlun-li-cv.pdf" class="inline-flex items-center gap-2 rounded-xl border border-black/10 px-5 py-3 font-semibold text-80 transition hover:border-(--primary) hover:text-(--primary) dark:border-white/10">
+				<Icon name="material-symbols:download-rounded" class="text-xl" /> Download CV
+			</a>
+			<a href="https://github.com/KunlunLi-Firefly" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 rounded-xl border border-black/10 px-5 py-3 font-semibold text-80 transition hover:border-(--primary) hover:text-(--primary) dark:border-white/10">
+				<Icon name="fa7-brands:github" class="text-xl" /> GitHub
+			</a>
+		</div>
+	</section>
+
+	<section class="mt-6">
+		<div class="mb-4 flex items-end justify-between gap-4 px-1">
+			<div>
+				<p class="text-sm font-semibold uppercase tracking-[0.16em] text-(--primary)">Selected work</p>
+				<h2 class="mt-1 text-3xl font-bold text-90">Featured projects</h2>
+			</div>
+			<a href="/projects/" class="font-medium text-(--primary)">View all</a>
+		</div>
+		<div class="grid gap-4 xl:grid-cols-3">
+			{projects.map((project) => <ProjectCard project={project} compact />)}
+		</div>
+	</section>
+
+	<section class="mt-6 grid gap-4 md:grid-cols-3">
+		<div class="card-base rounded-(--radius-large) p-6">
+			<Icon name="material-symbols:radiology-outline" class="text-3xl text-(--primary)" />
+			<h2 class="mt-4 text-xl font-bold text-90">Medical image analysis</h2>
+			<p class="mt-3 leading-7 text-70">Segmentation, registration, representation learning, and quantitative analysis for CT, MRI, and dermoscopic imaging.</p>
+		</div>
+		<div class="card-base rounded-(--radius-large) p-6">
+			<Icon name="material-symbols:model-training-outline" class="text-3xl text-(--primary)" />
+			<h2 class="mt-4 text-xl font-bold text-90">Data-efficient learning</h2>
+			<p class="mt-3 leading-7 text-70">Active learning, semi-supervised learning, depth-enhanced representations, and robust modeling under limited annotation.</p>
+		</div>
+		<div class="card-base rounded-(--radius-large) p-6">
+			<Icon name="material-symbols:graphic-eq-rounded" class="text-3xl text-(--primary)" />
+			<h2 class="mt-4 text-xl font-bold text-90">Signals and implementation</h2>
+			<p class="mt-3 leading-7 text-70">Speech signal processing, epoch extraction, embedded implementation, and the connection between algorithms and hardware.</p>
+		</div>
+	</section>
+
+	{publications.length > 0 && (
+		<section class="mt-6">
+			<div class="mb-4 px-1">
+				<p class="text-sm font-semibold uppercase tracking-[0.16em] text-(--primary)">Research output</p>
+				<h2 class="mt-1 text-3xl font-bold text-90">Selected publication</h2>
+			</div>
+			<PublicationCard publication={publications[0]} />
+		</section>
+	)}
+</MainGridLayout>
